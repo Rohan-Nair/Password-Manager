@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,6 @@ class LoginWindow extends JFrame implements ActionListener {
         username = new JTextField();
         passLabel = new JLabel("Password:");
         password = new JPasswordField();
-        // userLabel.setPreferredSize(new Dimension(300, 10));
 
         loginButton = new JButton("Login");
         changePassButton = new JButton("Change Password");
@@ -53,6 +53,12 @@ class LoginWindow extends JFrame implements ActionListener {
         loginPanel.add(password);
         loginPanel.add(loginButton);
         loginPanel.add(changePassButton);
+
+        // adding colour
+        loginPanel.setBackground(new Color(135, 206, 250));
+        loginButton.setBackground(new Color(255, 182, 78));
+        changePassButton.setBackground(new Color(255, 182, 78));
+
         add(loginPanel);
 
         loginButton.addActionListener(this);
@@ -65,36 +71,39 @@ class LoginWindow extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        String usernamechk = "";
-        String passwordchk = "";
-        // fetching the username and password from the file
-        File userFile = new File("user.txt");
-        if (userFile.exists()) {
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(userFile));
-                usernamechk += reader.readLine();
-                passwordchk += reader.readLine();
-                reader.close();
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error loading details.");
-            }
-        }
-        String usernameIP = username.getText();
-        String passwordIP = new String(password.getPassword());
+        if (e.getSource() == loginButton) {
 
-        try {
-            if (usernameIP.equals(usernamechk) && passwordIP.equals(passwordchk)) {
-                // login successful
-                JOptionPane.showMessageDialog(null, "Login Successful");
-                // create passwords window
-                MainPage mainPageWindow = new MainPage();
-                mainPageWindow.setVisible(true);
-                dispose(); // to delete the current window
-            } else {
-                throw new Exception("error");
+            String usernamechk = "";
+            String passwordchk = "";
+            // fetching the username and password from the file
+            File userFile = new File("user.txt");
+            if (userFile.exists()) {
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(userFile));
+                    usernamechk += reader.readLine();
+                    passwordchk += reader.readLine();
+                    reader.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error loading details.");
+                }
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Wrong Credentials");
+            String usernameIP = username.getText();
+            String passwordIP = new String(password.getPassword());
+
+            try {
+                if (usernameIP.equals(usernamechk) && passwordIP.equals(passwordchk)) {
+                    // login successful
+                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    // create passwords window
+                    MainPage mainPageWindow = new MainPage();
+                    mainPageWindow.setVisible(true);
+                    dispose(); // to delete the current window
+                } else {
+                    throw new Exception("error");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Wrong Credentials");
+            }
         }
 
         if (e.getSource() == changePassButton) {
@@ -125,6 +134,10 @@ class ChangePasswords extends JFrame implements ActionListener {
         updateButton.setFocusable(false);
 
         updateButton.addActionListener(this);
+
+        // colors
+        changePassPanel.setBackground(new Color(135, 206, 250));
+        updateButton.setBackground(new Color(255, 182, 78));
 
         changePassPanel.add(newUserLabel);
         changePassPanel.add(newUserField);
@@ -184,6 +197,13 @@ class MainPage extends JFrame implements ActionListener {
         generatePassword.addActionListener(this);
         addPassword.addActionListener(this);
         closeButton.addActionListener(this);
+
+        // colors
+        mainPanel.setBackground(new Color(135, 206, 250));
+        listPasswords.setBackground(new Color(255, 182, 78));
+        generatePassword.setBackground(new Color(255, 182, 78));
+        addPassword.setBackground(new Color(255, 182, 78));
+        closeButton.setBackground(new Color(255, 182, 78));
 
         add(mainPanel);
         setTitle("Home");
@@ -272,6 +292,10 @@ class AddPassword extends JFrame implements ActionListener {
 
         addPwd.addActionListener(this);
 
+        // colors
+        addPwdPanel.setBackground(new Color(135, 206, 250));
+        addPwd.setBackground(new Color(255, 182, 78));
+
         add(addPwdPanel);
         setTitle("Add Password");
         setSize(new Dimension(300, 200));
@@ -320,7 +344,12 @@ class ListPasswords extends JFrame implements ActionListener {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error loading Passwords");
         }
+
         delPwds.addActionListener(this);
+
+        // colors
+        listPwdPanel.setBackground(new Color(135, 206, 250));
+        delPwds.setBackground(new Color(255, 182, 78));
 
         listPwdPanel.add(listPwd);
         listPwdPanel.add(delPwds);
